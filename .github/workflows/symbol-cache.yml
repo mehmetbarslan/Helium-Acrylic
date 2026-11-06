@@ -1,0 +1,44 @@
+name: Helium symbol cache
+
+on:
+  schedule:
+    # Helium's symbol artifacts expire after 4 days; hourly checks catch every build.
+    - cron: '23 * * * *'
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Rebuild from one specific helium-windows run id (optional)
+        type: string
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/symbol-cache.yml'
+      - 'tools/**'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: helium-symbol-cache
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Let git push to this repo
+        env:
+          PUSH_TOKEN: ${{ github.token }}
+        run: git config --global url."https://x-access-token:${PUSH_TOKEN}@github.com/".insteadOf "https://github.com/"
+      - name: Build and publish cache files for new Helium builds
+        env:
+          # Optional secret HELIUM_READ_TOKEN: only needed if GitHub refuses artifact downloads with the default token.
+          GH_TOKEN: ${{ secrets.HELIUM_READ_TOKEN || github.token }}
+          FORCE_RUN: ${{ inputs.run_id }}
+        run: bash tools/update.sh
