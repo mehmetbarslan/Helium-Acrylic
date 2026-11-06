@@ -3,8 +3,7 @@
   "timestamp": 1793661791,
   "sizeOfImage": 307126272,
   "missingRequired": [
-    "?GetNonResultSectionHeight@RoundedOmniboxResultsFrame@@SAH_N@Z",
-    "?SetFillsBoundsOpaquely@Layer@ui@@QEAAX_N@Z"
+    "?GetNonResultSectionHeight@RoundedOmniboxResultsFrame@@SAH_N@Z"
   ],
   "symbols": [
     {
@@ -113,7 +112,7 @@
     },
     {
       "name": "?SetFillsBoundsOpaquely@Layer@ui@@QEAAX_N@Z",
-      "rva": null
+      "rva": "0x812F30"
     },
     {
       "name": "?OnPaintBackground@FadeLabel@@UEAAXPEAVCanvas@gfx@@@Z",
@@ -141,5 +140,5 @@
     }
   ],
   "sourceRun": "https://github.com/imputnet/helium-windows/actions/runs/41927690883",
-  "sourceRunCreated": "2026-11-04T22:43:05Z"
+  "sourceRunCreated": "manual"
 }
