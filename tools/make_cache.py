@@ -11,7 +11,7 @@ The order and names must match the SYMBOL_HOOK array in helium-acrylic.wh.cpp.
 """
 import json, mmap, os, struct, sys, uuid
 
-# (Windhawk undecorated name, exact decorated PDB public name, required)
+# (Windhawk undecorated name, exact decorated PDB public name(s), required)
 SLOTS = [
     ("protected: virtual void __cdecl views::View::OnPaintBackground(class gfx::Canvas *)",
      "?OnPaintBackground@View@views@@MEAAXPEAVCanvas@gfx@@@Z", True),
@@ -66,7 +66,8 @@ SLOTS = [
     ("public: virtual void __cdecl views::BubbleFrameView::OnThemeChanged(void)",
      "?OnThemeChanged@BubbleFrameView@views@@UEAAXXZ", True),
     ("public: void __cdecl ui::Layer::SetFillsBoundsOpaquely(bool)",
-     "?SetFillsBoundsOpaquely@Layer@ui@@QEAAX_N@Z", True),
+     ("?SetFillsBoundsOpaquely@Layer@ui@@QEAAX_N@Z",
+      "?SetFillsBoundsOpaquely@Layer@ui@@UEAAX_N@Z"), True),  # virtual since Chromium 157
     ("public: virtual void __cdecl FadeLabel::OnPaintBackground(class gfx::Canvas *)",
      "?OnPaintBackground@FadeLabel@@UEAAXPEAVCanvas@gfx@@@Z", True),
     ("public: class gfx::Rect __cdecl views::View::GetBoundsInScreen(void)const",
@@ -155,6 +156,36 @@ class Pdb:
         return b"".join(self.m[b * self.bs:(b + 1) * self.bs] for b in blocks)[:sz]
 
 
+def find_public(sym, pe, decorated):
+    needle = decorated.encode("ascii") + b"\0"
+    start = 0
+    while True:
+        i = sym.find(needle, start)
+        if i < 0:
+            return None
+        start = i + 1
+        h = i - 14  # S_PUB32: len(2) kind(2) flags(4) offset(4) seg(2) name
+        if h < 0:
+            continue
+        _len, kind, _flags, offset, seg = struct.unpack_from("<HHIIH", sym, h)
+        if kind == 0x110E and 1 <= seg <= len(pe["secs"]):
+            return pe["secs"][seg - 1] + offset
+
+
+def similar(sym, decorated):
+    """Public names with the same ?Method@Class@ prefix, for diagnostics."""
+    prefix = decorated.split("@@")[0].encode("ascii")
+    out, start = set(), 0
+    while len(out) < 8:
+        i = sym.find(prefix, start)
+        if i < 0:
+            break
+        start = i + 1
+        end = sym.find(b"\0", i)
+        out.add(sym[i:end].decode("ascii", "replace"))
+    return sorted(out)
+
+
 def main():
     dll, pdb_path, out_dir = sys.argv[1:4]
     pe = read_pe(dll)
@@ -171,28 +202,22 @@ def main():
 
     results = []
     for undecorated, decorated, required in SLOTS:
-        needle = decorated.encode("ascii") + b"\0"
+        names = (decorated,) if isinstance(decorated, str) else decorated
         rva = None
-        start = 0
-        while True:
-            i = sym.find(needle, start)
-            if i < 0:
+        for name in names:
+            rva = find_public(sym, pe, name)
+            if rva is not None:
                 break
-            start = i + 1
-            h = i - 14  # S_PUB32: len(2) kind(2) flags(4) offset(4) seg(2) name
-            if h < 0:
-                continue
-            _len, kind, _flags, offset, seg = struct.unpack_from("<HHIIH", sym, h)
-            if kind != 0x110E:
-                continue
-            if 1 <= seg <= len(pe["secs"]):
-                rva = pe["secs"][seg - 1] + offset
-                break
+        decorated = names[0]
         if rva is not None and not (0 < rva < pe["size"]):
             fail("RVA out of range for " + decorated)
         results.append((undecorated, decorated, required, rva))
 
     missing_required = [d for _, d, r, v in results if r and v is None]
+    for _, d, r, v in results:
+        if v is None:
+            print("MISSING %s%s; similar: %s" % ("" if r else "(optional) ", d, similar(sym, d)),
+                  file=sys.stderr)
     fields = ["1", "chrome.dll", "x86-64_%d_%d" % (pe["timestamp"], pe["size"])]
     for undecorated, _, _, rva in results:
         fields += [undecorated, "" if rva is None else str(rva)]
