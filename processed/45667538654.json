@@ -1,0 +1,144 @@
+{
+  "key": "DDC5683EF0912B314C4C44205044422E1",
+  "timestamp": 1795316712,
+  "sizeOfImage": 309284864,
+  "missingRequired": [
+    "?GetNonResultSectionHeight@RoundedOmniboxResultsFrame@@SAH_N@Z"
+  ],
+  "symbols": [
+    {
+      "name": "?OnPaintBackground@View@views@@MEAAXPEAVCanvas@gfx@@@Z",
+      "rva": "0x49B260"
+    },
+    {
+      "name": "?DrawColor@Canvas@gfx@@QEAAXIW4SkBlendMode@@@Z",
+      "rva": "0x37642E0"
+    },
+    {
+      "name": "?GetClassNameW@View@views@@QEBA?AV?$basic_string_view@DU?$char_traits@D@__Cr@std@@@__Cr@std@@XZ",
+      "rva": "0xD32620"
+    },
+    {
+      "name": "?ShouldWindowContentsBeTransparent@BrowserDesktopWindowTreeHostWin@@EEBA_NXZ",
+      "rva": "0x371F2D0"
+    },
+    {
+      "name": "??0BraveVerticalTabStripContainerView@@QEAA@PEAVBrowserView@@PEAVView@views@@@Z",
+      "rva": null
+    },
+    {
+      "name": "?SetBackground@View@views@@QEAAXV?$unique_ptr@VBackground@views@@U?$default_delete@VBackground@views@@@__Cr@std@@@__Cr@std@@@Z",
+      "rva": "0xCA0090"
+    },
+    {
+      "name": "?HasFocus@LocationBarView@@UEBA_NXZ",
+      "rva": "0x9DD3DD0"
+    },
+    {
+      "name": "?HasFocus@View@views@@UEBA_NXZ",
+      "rva": "0x3F3720"
+    },
+    {
+      "name": "?OnThemeChanged@ContentsWebView@@UEAAXXZ",
+      "rva": "0x1CDBE30"
+    },
+    {
+      "name": "?RenderViewReady@ContentsWebView@@UEAAXXZ",
+      "rva": "0x2FDBFF0"
+    },
+    {
+      "name": "?SetColor@LayerAnimator@ui@@UEAAXU?$SkRGBA4f@$02@@@Z",
+      "rva": "0x1264760"
+    },
+    {
+      "name": "?SetPageBaseBackgroundColor@WebContentsImpl@content@@UEAAXV?$optional@I@__Cr@std@@@Z",
+      "rva": "0x2F96E90"
+    },
+    {
+      "name": "?SetWebContents@ContentsWebView@@UEAAXPEAVWebContents@content@@@Z",
+      "rva": "0xF0ADD0"
+    },
+    {
+      "name": "?HWNDForView@views@@YAPEAUHWND__@@PEBVView@1@@Z",
+      "rva": "0x37521E0"
+    },
+    {
+      "name": "?GetColor@ColorProvider@ui@@QEBAIH@Z",
+      "rva": "0x47C8CA0"
+    },
+    {
+      "name": "?OnPaintBackground@MenuScrollViewContainer@views@@UEAAXPEAVCanvas@gfx@@@Z",
+      "rva": "0xABC49C0"
+    },
+    {
+      "name": "?Paint@BubbleBackground@views@@UEBAXPEAVCanvas@gfx@@PEAVView@2@@Z",
+      "rva": "0xAC0D610"
+    },
+    {
+      "name": "?drawRRect@RecordPaintCanvas@cc@@UEAAXAEBVSkRRect@@AEBVPaintFlags@2@@Z",
+      "rva": "0x1D3940"
+    },
+    {
+      "name": "??0RoundedOmniboxResultsFrame@@QEAA@PEAVView@views@@PEAVLocationBar@@_N@Z",
+      "rva": "0x3740A80"
+    },
+    {
+      "name": "??1RoundedOmniboxResultsFrame@@UEAA@XZ",
+      "rva": "0xA8DEEF0"
+    },
+    {
+      "name": "?SetRoundedCornersFromAnimation@Layer@ui@@EEAAXAEBVRoundedCornersF@gfx@@W4PropertyChangeReason@2@@Z",
+      "rva": "0x14C1DC0"
+    },
+    {
+      "name": "?Paint@SolidBackground@views@@UEBAXPEAVCanvas@gfx@@PEAVView@2@@Z",
+      "rva": "0x30ED2B0"
+    },
+    {
+      "name": "?GetLocalBounds@View@views@@QEBA?AVRect@gfx@@XZ",
+      "rva": "0x5B28510"
+    },
+    {
+      "name": "?GetNonResultSectionHeight@RoundedOmniboxResultsFrame@@SAH_N@Z",
+      "rva": null
+    },
+    {
+      "name": "??_7SolidBackground@views@@6B@",
+      "rva": "0xFBB9700"
+    },
+    {
+      "name": "?OnThemeChanged@BubbleFrameView@views@@UEAAXXZ",
+      "rva": "0xABFD720"
+    },
+    {
+      "name": "?SetFillsBoundsOpaquely@Layer@ui@@QEAAX_N@Z",
+      "rva": "0x14C1440"
+    },
+    {
+      "name": "?OnPaintBackground@FadeLabel@@UEAAXPEAVCanvas@gfx@@@Z",
+      "rva": "0x8B636D0"
+    },
+    {
+      "name": "?GetBoundsInScreen@View@views@@QEBA?AVRect@gfx@@XZ",
+      "rva": "0xBF46C0"
+    },
+    {
+      "name": "?OnBeforeWidgetInit@RoundedOmniboxResultsFrame@@SAXPEAUInitParams@Widget@views@@PEAV34@@Z",
+      "rva": "0xA8DEFE0"
+    },
+    {
+      "name": "?OnThemeChanged@MultiContentsBackgroundView@@UEAAXXZ",
+      "rva": "0x3737400"
+    },
+    {
+      "name": "?SetColor@LayerSolidColor@ui@@QEAAXU?$SkRGBA4f@$02@@@Z",
+      "rva": "0x12646D0"
+    },
+    {
+      "name": "?OnPaint@ContentsContainerOutline@@EEAAXPEAVCanvas@gfx@@@Z",
+      "rva": "0x372BF00"
+    }
+  ],
+  "sourceRun": "https://github.com/imputnet/helium-windows/actions/runs/45667538654",
+  "sourceRunCreated": "2026-11-25T17:42:15Z"
+}
